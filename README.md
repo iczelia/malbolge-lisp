@@ -2,9 +2,9 @@
 # MalbolgeLISP v1.2
 Made by Iczelia, 2020 - 2021. Core (core.mb) to the public domain, the entire program is governed by the GNU GPLv3 license.
 
-![Session gif](https://github.com/kspalaiologos/malbolge-lisp/raw/master/session.gif)
+![Session gif](https://github.com/iczelia/malbolge-lisp/raw/master/session.gif)
 
-**[During summer and fall of 2021, I wrote a book about MalbolgeLISP's design and implementation](https://github.com/kspalaiologos/malbolge-lisp/raw/master/MalbolgeLisp.pdf)**
+**[During summer and fall of 2021, I wrote a book about MalbolgeLISP's design and implementation](https://github.com/iczelia/malbolge-lisp/raw/master/MalbolgeLisp.pdf)**
 
 ## What is MalbolgeLisp?
 
