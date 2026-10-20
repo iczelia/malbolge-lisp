@@ -36,7 +36,7 @@ INLINE W mrot(W x)_(W t=END/3,b=x%t,m=b%3,d=b/3;d+m*(t/3)+(x-b))
 P u64 pgsiz;
 P W*mem,pat[6];
 
-P void mpstb(void*b,u64 l){mmap(b,l,PROT_READ|PROT_WRITE,MAP_PRIVATE|MAP_ANON|MAP_FIXED,-1,0);}
+P void mpstb(void*b,u64 l){mprotect(b,l,PROT_READ|PROT_WRITE);}
 
 P void sigsegvh(int n,siginfo_t*si,void*_) {
   void*a=si->si_addr,*ab=(void*)((u64)a&~(pgsiz-1));mpstb(ab, pgsiz);  
@@ -58,10 +58,10 @@ __attribute__((hot,flatten))int main(int argc, char* argv[]){
   M(4)M(5)M(23)M(39)M(40)M(62)M(68)M(81)
   #define BRA {goto*j[(c+mem[c]+offs[c/(END/3)])%94];}
   BRA;
-  #define NXT mem[c] = \
-    "SOMEBODY MAKE ME FEEL ALIVE" \
-    "[hj9>,5z]&gqtyfr$(we4{WP)H-Zn,[%\\3dL+Q;>U!pJS72FhOA1CB6v^=I_0/8|jsb9m<.TVac`uY*MK'X~xDl}REokN:#?G\"i@" \
-    "AND SHATTER ME"[mem[c]];c++;d++;BRA
+  static const char *xlat = "SOMEBODY MAKE ME FEEL ALIVE"
+    "[hj9>,5z]&gqtyfr$(we4{WP)H-Zn,[%\\3dL+Q;>U!pJS72FhOA1CB6v^=I_0/8|jsb9m<.TVac`uY*MK'X~xDl}REokN:#?G\"i@"
+    "AND SHATTER ME";
+  #define NXT do{if(mem[c]<135)mem[c]=xlat[mem[c]];c++;d++;BRA;}while(0)
   INS_4:c=*d;NXT;INS_5:putchar(a);fflush(stdout);NXT;
   INS_23:;int CR=getchar();a=CR==EOF?END-1:CR;NXT;INS_39:a=*d=mrot(*d);NXT;INS_40:d=mem+*d;NXT;
   INS_62:a=*d=mcrz(a, *d);INS_68:NXT;INS_81:return 0;INS_DEF:NXT;
